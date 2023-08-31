@@ -12,7 +12,7 @@ class studentClass:
         self.root.focus_force()
         
         # -----------------Title -----------------
-        title=Label(self.root,text="Manage Student Details",font=("goudy old style",20,"bold"),bg="#033054",fg="white").place(x=10,y=15,width=1180,height=40)
+        title=Label(self.root,text="Manage Student Details",font=("goudy old style",20,"bold"),bg="#012542",fg="white").place(x=10,y=15,width=1180,height=40)
         
         # ------------------Variables-----------
         self.var_roll=StringVar()
@@ -335,6 +335,7 @@ class studentClass:
             messagebox.showerror("Error",f"Error due to {str(ex)}")
 
 # -----------------------------------------------
+
 if __name__=="__main__":
     root=Tk()
     obj=studentClass(root)

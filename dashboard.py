@@ -2,6 +2,8 @@ from tkinter import*
 from PIL import Image,ImageTk
 from course import CourseClass
 from student import studentClass
+from tkinter import ttk,messagebox
+import sqlite3
 class RMS:
     def __init__(self,root):
         self.root=root
@@ -48,7 +50,9 @@ class RMS:
         
         self.lbl_result=Label(self.root,text="Total Results\n [ 0 ]",font=("goudy old style",20),bd=10,relief=RIDGE,bg="#038074",fg="white")
         self.lbl_result.place(x=1020,y=635,width=300,height=100)
-    
+
+        self.update_details()
+        
     def add_course(self):
             self.new_win=Toplevel(self.root)
             self.new_obj=CourseClass(self.new_win)        
@@ -57,6 +61,26 @@ class RMS:
             self.new_win=Toplevel(self.root)
             self.new_obj=studentClass(self.new_win)        
 
+            
+
+# -----------------------------------------------
+    def update_details(self):
+        con=sqlite3.connect(database="srms.db")
+        cur=con.cursor()
+        try:
+            cur.execute("select * from course")
+            cr=cur.fetchall()
+            self.lbl_course.config(text=f"Total Courses \n [ {str(len(cr))} ]")
+            
+            cur.execute("select * from student")
+            cr=cur.fetchall()
+            self.lbl_student.config(text=f"Total Students \n [ {str(len(cr))} ]")
+            
+            
+            self.lbl_course.after(200,self.update_details)
+                
+        except Exception as ex:
+            messagebox.showerror("Error",f"Error due to {str(ex)}")
 
 # -----------------------------------------------
 if __name__=="__main__":

@@ -12,7 +12,7 @@ class CourseClass:
         self.root.focus_force()
         
         # -----------------Title -----------------
-        title=Label(self.root,text="Manage Course Details",font=("goudy old style",20,"bold"),bg="#033054",fg="white").place(x=10,y=15,width=1180,height=40)
+        title=Label(self.root,text="Manage Course Details",font=("goudy old style",20,"bold"),bg="#012542",fg="white").place(x=10,y=15,width=1180,height=40)
         
         # ------------------Variables-----------
         self.var_course=StringVar()
