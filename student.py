@@ -36,18 +36,18 @@ class studentClass:
         lbl_Email=Label(self.root,text="Email",font=("goudy old style",15,'bold'),bg='white').place(x=10,y=140)
         lbl_gender=Label(self.root,text="Gender",font=("goudy old style",15,'bold'),bg='white').place(x=10,y=180)
         
-        lbl_state=Label(self.root,text="State",font=("goudy old style",15,'bold'),bg='white').place(x=10,y=220)
-        txt_state=Entry(self.root,textvariable=self.var_state,font=("goudy old style",15,'bold'),bg='lightyellow').place(x=150,y=220,width=150)
+        lbl_state=Label(self.root,text="State",font=("goudy old style",15,'bold'),bg='white').place(x=10,y=330)
+        txt_state=Entry(self.root,textvariable=self.var_state,font=("goudy old style",15,'bold'),bg='lightyellow').place(x=150,y=330,width=150)
         
-        lbl_city=Label(self.root,text="City",font=("goudy old style",15,'bold'),bg='white').place(x=310,y=220)
-        txt_city=Entry(self.root,textvariable=self.var_city,font=("goudy old style",15,'bold'),bg='lightyellow').place(x=360,y=220,width=140)
+        lbl_city=Label(self.root,text="City",font=("goudy old style",15,'bold'),bg='white').place(x=310,y=330)
+        txt_city=Entry(self.root,textvariable=self.var_city,font=("goudy old style",15,'bold'),bg='lightyellow').place(x=360,y=330,width=140)
         
-        lbl_pin=Label(self.root,text="Pin",font=("goudy old style",15,'bold'),bg='white').place(x=520,y=220)
-        txt_pin=Entry(self.root,textvariable=self.var_pin,font=("goudy old style",15,'bold'),bg='lightyellow').place(x=570,y=220,width=110)
+        lbl_pin=Label(self.root,text="Pin",font=("goudy old style",15,'bold'),bg='white').place(x=520,y=330)
+        txt_pin=Entry(self.root,textvariable=self.var_pin,font=("goudy old style",15,'bold'),bg='lightyellow').place(x=570,y=330,width=110)
         
         
         
-        lbl_address=Label(self.root,text="Address",font=("goudy old style",15,'bold'),bg='white').place(x=10,y=260)
+        lbl_address=Label(self.root,text="Address",font=("goudy old style",15,'bold'),bg='white').place(x=10,y=220)
         
         # ---------------------Entry Fields-------------
         self.txt_roll=Entry(self.root,textvariable=self.var_roll,font=("goudy old style",15,'bold'),bg='lightyellow')
@@ -61,7 +61,7 @@ class studentClass:
         # --------------------Column2------------
         lbl_dob=Label(self.root,text="D.O.B",font=("goudy old style",15,'bold'),bg='white').place(x=360,y=60)
         lbl_contact=Label(self.root,text="Contact",font=("goudy old style",15,'bold'),bg='white').place(x=360,y=100)
-        lbl_admission=Label(self.root,text="Admission",font=("goudy old style",15,'bold'),bg='white').place(x=360,y=140)
+        lbl_admission=Label(self.root,text="Admit Date",font=("goudy old style",15,'bold'),bg='white').place(x=360,y=140)
         lbl_course=Label(self.root,text="Course",font=("goudy old style",15,'bold'),bg='white').place(x=360,y=180)
         
         # ---------------------Entry Fields 2-------------
@@ -78,7 +78,7 @@ class studentClass:
         
         # ---------------txt address----------------
         self.txt_address=Text(self.root,font=("goudy old style",15,'bold'),bg='lightyellow')
-        self.txt_address.place(x=150,y=260,width=530,height=100)
+        self.txt_address.place(x=150,y=220,width=530,height=100)
         
         # -------------------Buttons-------------------
         self.btn_add=Button(self.root,text='Save',font=("goudy old style",18,'bold'),bg="#2196f3",fg="black",cursor="hand2",command=self.add)

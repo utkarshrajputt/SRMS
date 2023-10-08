@@ -28,10 +28,18 @@ class CourseClass:
         # ---------------------Entry Fields-------------
         self.txt_courseName=Entry(self.root,textvariable=self.var_course,font=("goudy old style",15,'bold'),bg='lightyellow')
         self.txt_courseName.place(x=150,y=60,width=200)
-        txt_duration=Entry(self.root,textvariable=self.var_duration,font=("goudy old style",15,'bold'),bg='lightyellow').place(x=150,y=100,width=200)
-        txt_charges=Entry(self.root,textvariable=self.var_charges,font=("goudy old style",15,'bold'),bg='lightyellow').place(x=150,y=140,width=200)
+        
+        self.txt_duration=Entry(self.root,textvariable=self.var_duration,font=("goudy old style",15,'bold'),bg='lightyellow')
+        self.txt_duration.place(x=150,y=100,width=200)
+        
+        self.txt_charges=Entry(self.root,textvariable=self.var_charges,font=("goudy old style",15,'bold'),bg='lightyellow')
+        self.txt_charges.place(x=150,y=140,width=200)
+        
         self.txt_description=Text(self.root,font=("goudy old style",15,'bold'),bg='lightyellow')
         self.txt_description.place(x=150,y=180,width=400,height=100)
+        
+        
+        
         
         # -------------------Buttons-------------------
         self.btn_add=Button(self.root,text='Save',font=("goudy old style",18,'bold'),bg="#2196f3",fg="black",cursor="hand2",command=self.add)
@@ -45,6 +53,9 @@ class CourseClass:
         
         self.btn_clear=Button(self.root,text='Clear',font=("goudy old style",18,'bold'),bg="#607d8b",fg="black",cursor="hand2",command=self.clear)
         self.btn_clear.place(x=480,y=400,width=100,height=50)
+        
+        # self.root.create_rectangle(10, 40, 30, 350, fill="black")
+        
         
         # ------------Search Panel------------------------
         self.var_search=StringVar()
@@ -115,8 +126,31 @@ class CourseClass:
         # self.var_course.set(row[4])
         self.txt_description.delete('1.0',END)
         self.txt_description.insert(END,row[4])
+# ---------------------------Validations-------------------
+        
+    def validate(self):
+        name=self.var_course.get()
+        
+        
+        if len(name) == 0:
+            messagebox.showinfo('message', 'Name can\'t be empty')
+        else:
+            try:
+                if any(ch.isdigit() for ch in name):
+                    messagebox.showinfo('message', 'Name can\'t have numbers')
+                elif len(name) <= 2:
+                    messagebox.showinfo('message', 'Name is too short ')
+                elif len(name) > 100:
+                    messagebox.showinfo('message', 'Name is too long ')
+                else:
+                    messagebox.showinfo('message','SUCCESS!')
+            except Exception as ep:
+                messagebox.showerror('error', ep)
+        
+    
         
 # ---------------------------------------------------------------------------
+
     def add(self):
         con=sqlite3.connect(database="srms.db")
         cur=con.cursor()

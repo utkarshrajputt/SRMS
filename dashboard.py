@@ -2,13 +2,15 @@ from tkinter import*
 from PIL import Image,ImageTk
 from course import CourseClass
 from student import studentClass
+from result import resultClass
+from report import reportClass
 from tkinter import ttk,messagebox
 import sqlite3
 class RMS:
     def __init__(self,root):
         self.root=root
         self.root.title("Student Result Management System")
-        self.root.geometry("1350x750+50+20")
+        self.root.geometry("1350x750+90+20")
         self.root.config(bg="white")
         # ----------------Icons----------
         self.logo_dash=ImageTk.PhotoImage(file="img/analysis.png")
@@ -26,9 +28,9 @@ class RMS:
         
         btn_student=Button(M_Frame,text="Student",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2",command=self.add_student).place(x=240,y=5,width=200,height=40)
         
-        btn_result=Button(M_Frame,text="Result",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=460,y=5,width=200,height=40)
+        btn_result=Button(M_Frame,text="Result",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2",command=self.add_result).place(x=460,y=5,width=200,height=40)
         
-        btn_view=Button(M_Frame,text="View Result",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=680,y=5,width=200,height=40)
+        btn_view=Button(M_Frame,text="View Result",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2",command=self.view_result).place(x=680,y=5,width=200,height=40)
         
         btn_logout=Button(M_Frame,text="Logout",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=900,y=5,width=200,height=40)
         
@@ -52,17 +54,7 @@ class RMS:
         self.lbl_result.place(x=1020,y=635,width=300,height=100)
 
         self.update_details()
-        
-    def add_course(self):
-            self.new_win=Toplevel(self.root)
-            self.new_obj=CourseClass(self.new_win)        
-    
-    def add_student(self):
-            self.new_win=Toplevel(self.root)
-            self.new_obj=studentClass(self.new_win)        
-
-            
-
+     
 # -----------------------------------------------
     def update_details(self):
         con=sqlite3.connect(database="srms.db")
@@ -81,6 +73,24 @@ class RMS:
                 
         except Exception as ex:
             messagebox.showerror("Error",f"Error due to {str(ex)}")
+            
+            
+            
+    def add_course(self):
+            self.new_win=Toplevel(self.root)
+            self.new_obj=CourseClass(self.new_win)        
+    
+    def add_student(self):
+            self.new_win=Toplevel(self.root)
+            self.new_obj=studentClass(self.new_win)  
+                  
+    def add_result(self):
+            self.new_win=Toplevel(self.root)
+            self.new_obj=resultClass(self.new_win)    
+            
+    def view_result(self):
+            self.new_win=Toplevel(self.root)
+            self.new_obj=reportClass(self.new_win)        
 
 # -----------------------------------------------
 if __name__=="__main__":
