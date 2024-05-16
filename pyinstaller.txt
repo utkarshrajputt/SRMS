@@ -1,0 +1,5 @@
+pip install pyinstaller
+
+pyinstaller <filename> --onefile --windowed
+
+then move the .exe file fro dist to root folder

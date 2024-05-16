@@ -7,12 +7,12 @@ class CourseClass:
     def __init__(self,root):
         self.root=root
         self.root.title("Student Result Management System")
-        self.root.geometry("1200x480+180+150")
+        self.root.geometry("1200x480+180+200")
         self.root.config(bg="white")
         self.root.focus_force()
         
         # -----------------Title -----------------
-        title=Label(self.root,text="Manage Course Details",font=("goudy old style",20,"bold"),bg="#012542",fg="white").place(x=10,y=15,width=1180,height=40)
+        title=Label(self.root,text="Manage Course Details",font=("goudy old style",20,"bold"),bg="#012542",fg="white").place(x=10,y=7,width=1180,height=40)
         
         # ------------------Variables-----------
         self.var_course=StringVar()
@@ -54,7 +54,8 @@ class CourseClass:
         self.btn_clear=Button(self.root,text='Clear',font=("goudy old style",18,'bold'),bg="#607d8b",fg="black",cursor="hand2",command=self.clear)
         self.btn_clear.place(x=480,y=400,width=100,height=50)
         
-        # self.root.create_rectangle(10, 40, 30, 350, fill="black")
+        left_lbl = Label(self.root, bg='#012542', bd=0)
+        left_lbl.place(x=600, y=48, relheight=1, width=20)
         
         
         # ------------Search Panel------------------------
@@ -128,25 +129,6 @@ class CourseClass:
         self.txt_description.insert(END,row[4])
 # ---------------------------Validations-------------------
         
-    def validate(self):
-        name=self.var_course.get()
-        
-        
-        if len(name) == 0:
-            messagebox.showinfo('message', 'Name can\'t be empty')
-        else:
-            try:
-                if any(ch.isdigit() for ch in name):
-                    messagebox.showinfo('message', 'Name can\'t have numbers')
-                elif len(name) <= 2:
-                    messagebox.showinfo('message', 'Name is too short ')
-                elif len(name) > 100:
-                    messagebox.showinfo('message', 'Name is too long ')
-                else:
-                    messagebox.showinfo('message','SUCCESS!')
-            except Exception as ep:
-                messagebox.showerror('error', ep)
-        
     
         
 # ---------------------------------------------------------------------------
@@ -157,6 +139,14 @@ class CourseClass:
         try:
             if self.var_course.get()=="":
                 messagebox.showerror("Error","Course Name is required",parent=self.root)
+            elif self.var_charges.get()=="" or self.var_duration.get()=="" :
+                messagebox.showerror("Error","All Fields required",parent=self.root)
+            elif not self.var_course.get().isalpha():
+                messagebox.showerror("Error","Course should have alphabets only",parent=self.root)
+            elif not self.var_charges.get().isdigit():
+                messagebox.showerror("Error","Charges cannot have alphabets",parent=self.root)
+            
+                
             else:
                 cur.execute("select * from course where name=?",(self.var_course.get(),))
                 row=cur.fetchone()
@@ -182,6 +172,13 @@ class CourseClass:
         try:
             if self.var_course.get()=="":
                 messagebox.showerror("Error","Enter the details",parent=self.root)
+            elif self.var_charges.get()=="" or self.var_duration.get()=="" :
+                messagebox.showerror("Error","All Fields required",parent=self.root)
+            elif not self.var_course.get().isalpha():
+                messagebox.showerror("Error","Course should have alphabets only",parent=self.root)
+            elif not self.var_charges.get().isdigit():
+                messagebox.showerror("Error","Charges cannot have alphabets",parent=self.root)
+            
             else:
                 cur.execute("select * from course where name=?",(self.var_course.get(),))
                 row=cur.fetchone()
@@ -208,18 +205,25 @@ class CourseClass:
         try:
             if self.var_course.get()=="":
                 messagebox.showerror("Error","Course Name is required",parent=self.root)
+            
             else:
                 cur.execute("select * from course where name=?",(self.var_course.get(),))
                 row=cur.fetchone()
                 if row==None:
                     messagebox.showerror("Error","Select course from the list",parent=self.root)
                 else:
-                    op=messagebox.askyesno("Confirm","Do you really want to delete?",parent=self.root)
-                    if op==True:
-                        cur.execute("delete from course where name=?",(self.var_course.get(),))
-                        con.commit()
-                        messagebox.showinfo("Delete","Course deleted successfully",parent=self.root)
-                        self.clear()
+                    cur.execute("SELECT * FROM student WHERE course=?", (self.var_course.get(),))
+                    enrolled_students = cur.fetchone()
+
+                    if enrolled_students:
+                        messagebox.showerror("Error", "Course cannot be deleted. Students are enrolled in this course.", parent=self.root)
+                    else:
+                        op=messagebox.askyesno("Confirm","Do you really want to delete?",parent=self.root)
+                        if op==True:
+                            cur.execute("delete from course where name=?",(self.var_course.get(),))
+                            con.commit()
+                            messagebox.showinfo("Delete","Course deleted successfully",parent=self.root)
+                            self.clear()
         except Exception as ex:
             messagebox.showerror("Error",f"Error due to {str(ex)}")
         
@@ -247,6 +251,9 @@ class CourseClass:
         try:
             if self.var_search.get()=="":
                 messagebox.showerror("Error","Course Name is required",parent=self.root)
+            elif not self.var_search.get().isalpha():
+                messagebox.showerror("Error","Course Name should have alphabets",parent=self.root)
+                
             else:
                 cur.execute(f"select * from course where name LIKE '%{self.var_search.get()}%' ")
                 rows=cur.fetchall()
